@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: example-app
-        image: kjy901006/example-app:latest
+        image: kjy901006/cd-pipeline:latest
         ports:
         - containerPort: 80
