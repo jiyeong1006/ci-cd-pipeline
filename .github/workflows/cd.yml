@@ -10,24 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 코드 체크아웃
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      # 1. 리포지토리에서 코드 가져오기
+      - uses: actions/checkout@v3
 
-      # 2. kubeconfig 설정
-      - name: Configure kubeconfig
+      # 2. Python 의존성 설치 및 테스트 실행
+      - name: Install dependencies and run tests
         run: |
-          echo "${{ secrets.KUBE_CONFIG_DATA }}" > kubeconfig
-          export KUBECONFIG=$PWD/kubeconfig
+          python -m pip install --upgrade pip
+          pip install flask pytest
+          pytest
 
-      # 3. kubectl 설정
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'v1.27.0'
-
-      # 4. Kubernetes 배포
+      # 3. Kubernetes 배포
       - name: Deploy to Kubernetes
         run: |
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" > $HOME/.kube/config
           kubectl apply -f ./k8s/deployment.yml
           kubectl get pods
