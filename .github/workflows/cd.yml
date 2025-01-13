@@ -26,7 +26,7 @@ jobs:
         with:
           version: 'v1.27.0'
 
-      # 4. Kubernetes에 Deployment 적용
+      # 4. Kubernetes 배포
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f ./k8s/deployment.yml
