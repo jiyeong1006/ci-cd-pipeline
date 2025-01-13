@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: example-app
+  labels:
+    app: example
 spec:
   replicas: 3
   selector:
@@ -14,6 +16,6 @@ spec:
     spec:
       containers:
       - name: example-app
-        image: kjy901006/cd-pipeline:latest
+        image: <dockerhub-username>/cd-pipeline:latest
         ports:
         - containerPort: 80

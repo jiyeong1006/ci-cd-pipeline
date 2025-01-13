@@ -10,19 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. 코드 체크아웃
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      # 2. kubeconfig 설정
       - name: Configure kubeconfig
         run: |
           echo "${{ secrets.KUBE_CONFIG_DATA }}" > kubeconfig
           export KUBECONFIG=$PWD/kubeconfig
 
-      - name: Set up Kubernetes
+      # 3. kubectl 설정
+      - name: Set up kubectl
         uses: azure/setup-kubectl@v3
         with:
           version: 'v1.27.0'
 
+      # 4. Kubernetes에 Deployment 적용
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f ./k8s/deployment.yml
+          kubectl get pods
