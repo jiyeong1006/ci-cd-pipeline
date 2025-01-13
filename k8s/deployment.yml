@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: example-app
-  labels:
-    app: example
 spec:
   replicas: 3
   selector:
@@ -16,7 +14,6 @@ spec:
     spec:
       containers:
       - name: example-app
-        image: kjy901006/cd-pipeline:latest # Docker Hub에 푸시된 이미지 경로
+        image: kjy901006/cd-pipeline:latest
         ports:
         - containerPort: 80
-        imagePullPolicy: Always # 최신 이미지를 가져오도록 설정
